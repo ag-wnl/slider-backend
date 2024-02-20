@@ -12,9 +12,11 @@ app.use((req, res, next) => {
 
 const linkedinRoutes = require('./routes/linkedin');
 const bigTechRoutes = require('./routes/bigTech')
+const defaultRoutes = require('./routes/entryPoint')
 
 app.use('/api/linkedin_jobs', linkedinRoutes);
 app.use('/api/bigtech', bigTechRoutes);
+app.use('/', defaultRoutes);
 
 
 

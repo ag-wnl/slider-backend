@@ -4,8 +4,8 @@ const scrapeGoogleInternshipDetails = require('../scripts/googleCareers');
 const scrapeAmazonInternshipDetails = require('../scripts/amazonCareers');
 
 const fs = require('fs');
-const cacheFilePath = '../backend/storage/bigtechCache.json';
-
+const path = require('path');
+const cacheFilePath = path.join(__dirname, '../storage/bigtechCache.json');
 
 // https://www.google.com/about/careers/applications/jobs/results?location=India&q=intern
 // https://www.amazon.jobs/en/search?&sort=recent&base_query=intern&country=IND
