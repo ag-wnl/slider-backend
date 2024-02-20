@@ -6,14 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
-    "dev": "nodemon server",
-    "install-chromium": "puppeteer install",
-    "build" : "npm run install-chromium"
+    "dev": "nodemon server"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@puppeteer/browsers": "^2.0.1",
     "axios": "^1.6.7",
     "cheerio": "^1.0.0-rc.12",
     "cors": "^2.8.5",
