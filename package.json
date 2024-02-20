@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "install-chromium": "puppeteer install",
+    "build" : "npm run install-chromium"
   },
   "keywords": [],
   "author": "",
