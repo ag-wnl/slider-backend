@@ -28,8 +28,7 @@ function randomizeArray(arr) {
 
 async function fetchInternshipDetails() {
     try {
-        const [googleJobPostings, amazonJobPostings, microsoftPostings, netflixPostings, oraclePostings, atlassianPostings] = await Promise.all([
-            scrapeGoogleInternshipDetails(googleCareersURL),
+        const [amazonJobPostings, microsoftPostings, netflixPostings, oraclePostings, atlassianPostings] = await Promise.all([
             getAmazonJobs(),
             getMicrosoftJobs(),
             getNetflixJobs(),
@@ -37,7 +36,7 @@ async function fetchInternshipDetails() {
             getAtlassianJobs()
         ]);
 
-        const allJobPostings = googleJobPostings.concat(amazonJobPostings, microsoftPostings, netflixPostings, oraclePostings, atlassianPostings);
+        const allJobPostings = amazonJobPostings.concat(microsoftPostings, netflixPostings, oraclePostings, atlassianPostings);
         // allJobPostings = randomizeArray(allJobPostings);
 
         return allJobPostings;
