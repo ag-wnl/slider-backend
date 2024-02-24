@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const scrapeGoogleInternshipDetails = require('../scripts/googleCareers');
-const scrapeAmazonInternshipDetails = require('../scripts/amazonCareers');
+const getAmazonJobs = require('../scripts/amazonCareers')
+const getMicrosoftJobs = require('../scripts/microsoftCareers')
+const getNetflixJobs = require('../scripts/netflixCareers')
+const getOracleJobs = require('../scripts/oracleCareers')
+const getAtlassianJobs = require('../scripts/atlassianCareers')
 
 const fs = require('fs');
 const path = require('path');
@@ -11,7 +15,7 @@ const cacheFilePath = path.join(__dirname, '../storage/bigtechCache.json');
 // https://www.amazon.jobs/en/search?&sort=recent&base_query=intern&country=IND
 // https://jobs.careers.microsoft.com/global/en/search?q=intern&lc=India&o=Recent
 
-const googleCareersURL = 'https://www.google.com/about/careers/applications/jobs/results?q=intern&sort_by=date';
+const googleCareersURL = 'https://www.google.com/about/careers/applications/jobs/results?q=internship&sort_by=date';
 const amazonCareersURL = 'https://www.amazon.jobs/en/search?&sort=recent&base_query=intern&country=IND';
 //https://www.google.com/about/careers/applications/jobs/results?sort_by=date&employment_type=INTERN
 
@@ -24,12 +28,16 @@ function randomizeArray(arr) {
 
 async function fetchInternshipDetails() {
     try {
-        const [googleJobPostings, amazonJobPostings] = await Promise.all([
+        const [googleJobPostings, amazonJobPostings, microsoftPostings, netflixPostings, oraclePostings, atlassianPostings] = await Promise.all([
             scrapeGoogleInternshipDetails(googleCareersURL),
-            scrapeAmazonInternshipDetails(amazonCareersURL)
+            getAmazonJobs(),
+            getMicrosoftJobs(),
+            getNetflixJobs(),
+            getOracleJobs(),
+            getAtlassianJobs()
         ]);
 
-        const allJobPostings = googleJobPostings.concat(amazonJobPostings);
+        const allJobPostings = googleJobPostings.concat(amazonJobPostings, microsoftPostings, netflixPostings, oraclePostings, atlassianPostings);
         // allJobPostings = randomizeArray(allJobPostings);
 
         return allJobPostings;

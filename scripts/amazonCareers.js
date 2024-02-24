@@ -6,7 +6,6 @@
 
 const axios = require('axios');
 const cheerio = require('cheerio');
-
 const puppeteer = require('puppeteer');
 
 async function scrapeAmazonInternshipDetails(url) {
@@ -49,4 +48,40 @@ async function scrapeAmazonInternshipDetails(url) {
     }
 }
 
-module.exports = scrapeAmazonInternshipDetails;
+
+// object.jobs -> array of jobs : this is the area to fecth
+// https://www.amazon.jobs/en/search.json?base_query=intern&city=&country=IND&region=&county=&query_options=&
+
+async function getAmazonJobsAPI() {
+    try {
+        const AmazonUrl = "https://www.amazon.jobs/en/search.json?base_query=intern&city=&country=IND&region=&county=&query_options=&";
+        const response = await axios.get(AmazonUrl);
+        
+        const jobPostingsData = [];
+        const jsonData = response.data;
+
+        if(jsonData && Array.isArray(jsonData.jobs)) {
+            jsonData.jobs.forEach( job => {
+                const location = job.city;
+                const jobUrl = `https://amazon.jobs/en/jobs/${job.id_icims}/`;               
+                
+                // format : https://amazon.jobs/en/jobs/2567484/, what we get from api: https://account.amazon.com/jobs/2567484/apply
+                // so just use id_icims and insert it in place of job id
+
+                const date = job.posted_date;
+                const agoTime = job.updated_time;
+                const position = job.title;
+                const company = "Amazon";
+
+                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime });
+            });
+        }
+        return jobPostingsData;
+    } catch (error) {
+        throw new Error('Error scraping Amazon internship details: ' + error);
+    }
+}
+
+
+
+module.exports = getAmazonJobsAPI;
