@@ -6,6 +6,9 @@ const getMicrosoftJobs = require('../scripts/microsoftCareers')
 const getNetflixJobs = require('../scripts/netflixCareers')
 const getOracleJobs = require('../scripts/oracleCareers')
 const getAtlassianJobs = require('../scripts/atlassianCareers')
+const getNvidiaJobs = require('../scripts/nvidiaCareers')
+const getSnowflakeJobs = require('../scripts/snowflakeCareers')
+const getDatabricksJobs = require('../scripts/databricksCareers')
 
 const fs = require('fs');
 const path = require('path');
@@ -28,15 +31,20 @@ function randomizeArray(arr) {
 
 async function fetchInternshipDetails() {
     try {
-        const [amazonJobPostings, microsoftPostings, netflixPostings, oraclePostings, atlassianPostings] = await Promise.all([
+        const [amazonJobPostings, microsoftPostings, netflixPostings, oraclePostings, 
+            atlassianPostings, nvidiaPostings, snowflakePostings, databricksPostings] = await Promise.all([
             getAmazonJobs(),
             getMicrosoftJobs(),
             getNetflixJobs(),
             getOracleJobs(),
-            getAtlassianJobs()
+            getAtlassianJobs(),
+            getNvidiaJobs(),
+            getSnowflakeJobs(),
+            getDatabricksJobs()
         ]);
 
-        const allJobPostings = amazonJobPostings.concat(microsoftPostings, netflixPostings, oraclePostings, atlassianPostings);
+        const allJobPostings = amazonJobPostings.concat(microsoftPostings, netflixPostings, 
+            oraclePostings, atlassianPostings, nvidiaPostings, snowflakePostings, databricksPostings);
         // allJobPostings = randomizeArray(allJobPostings);
 
         return allJobPostings;

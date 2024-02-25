@@ -1,5 +1,4 @@
 const axios = require('axios');
-const cheerio = require('cheerio');
 
 // object.operationResult.result.jobs -> this is the array containing all the job objects
 
