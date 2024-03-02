@@ -9,18 +9,12 @@ const getAtlassianJobs = require('../scripts/atlassianCareers')
 const getNvidiaJobs = require('../scripts/nvidiaCareers')
 const getSnowflakeJobs = require('../scripts/snowflakeCareers')
 const getDatabricksJobs = require('../scripts/databricksCareers')
+const getMetaJobs = require('../scripts/metaCareers')
+const getIBMJobs = require('../scripts/ibmCareers')
 
 const fs = require('fs');
 const path = require('path');
 const cacheFilePath = path.join(__dirname, '../storage/bigtechCache.json');
-
-// https://www.google.com/about/careers/applications/jobs/results?location=India&q=intern
-// https://www.amazon.jobs/en/search?&sort=recent&base_query=intern&country=IND
-// https://jobs.careers.microsoft.com/global/en/search?q=intern&lc=India&o=Recent
-
-const googleCareersURL = 'https://www.google.com/about/careers/applications/jobs/results?q=internship&sort_by=date';
-const amazonCareersURL = 'https://www.amazon.jobs/en/search?&sort=recent&base_query=intern&country=IND';
-//https://www.google.com/about/careers/applications/jobs/results?sort_by=date&employment_type=INTERN
 
 function randomizeArray(arr) {
     for(let i = arr.length-1; i>0; i--) {
@@ -30,21 +24,27 @@ function randomizeArray(arr) {
 }
 
 async function fetchInternshipDetails() {
+
+    const jobPromises = [
+        getAmazonJobs().catch(error => []),
+        getMicrosoftJobs().catch(error => []),
+        getNetflixJobs().catch(error => []),
+        getOracleJobs().catch(error => []),
+        getAtlassianJobs().catch(error => []),
+        getNvidiaJobs().catch(error => []),
+        getSnowflakeJobs().catch(error => []),
+        getDatabricksJobs().catch(error => []),
+        getIBMJobs().catch(error => [])
+    ];
+
     try {
         const [amazonJobPostings, microsoftPostings, netflixPostings, oraclePostings, 
-            atlassianPostings, nvidiaPostings, snowflakePostings, databricksPostings] = await Promise.all([
-            getAmazonJobs(),
-            getMicrosoftJobs(),
-            getNetflixJobs(),
-            getOracleJobs(),
-            getAtlassianJobs(),
-            getNvidiaJobs(),
-            getSnowflakeJobs(),
-            getDatabricksJobs()
-        ]);
+            atlassianPostings, nvidiaPostings, snowflakePostings, 
+            databricksPostings, ibmPostings] = await Promise.all(jobPromises);
 
         const allJobPostings = amazonJobPostings.concat(microsoftPostings, netflixPostings, 
-            oraclePostings, atlassianPostings, nvidiaPostings, snowflakePostings, databricksPostings);
+            oraclePostings, atlassianPostings, nvidiaPostings, snowflakePostings, 
+            databricksPostings, ibmPostings);
         // allJobPostings = randomizeArray(allJobPostings);
 
         return allJobPostings;
