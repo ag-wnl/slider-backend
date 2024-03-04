@@ -16,12 +16,6 @@ const fs = require('fs');
 const path = require('path');
 const cacheFilePath = path.join(__dirname, '../storage/bigtechCache.json');
 
-function randomizeArray(arr) {
-    for(let i = arr.length-1; i>0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[i], arr[j]];
-    }
-}
 
 async function fetchInternshipDetails() {
 
@@ -46,6 +40,15 @@ async function fetchInternshipDetails() {
             oraclePostings, atlassianPostings, nvidiaPostings, snowflakePostings, 
             databricksPostings, ibmPostings);
         // allJobPostings = randomizeArray(allJobPostings);
+
+
+        for(let i = allJobPostings.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+    
+            const holderObj = allJobPostings[i];
+            allJobPostings[i] = allJobPostings[j];
+            allJobPostings[j] = holderObj;
+        }
 
         return allJobPostings;
     } catch (error) {

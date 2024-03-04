@@ -117,14 +117,14 @@ async function getIBMJobsAPI() {
 
         if(jsonData && Array.isArray(jsonData.hits.hits)) {
             jsonData.hits.hits.forEach( job => {
-                const location = job._source.field_keyword_19;
-                const jobUrl = job._source.url;
-                const date = ""; 
-                const agoTime = ""; 
-                const position = job._source.title;
-                const company = "IBM";
-
-                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime });
+              const location = job._source.field_keyword_19;
+              const jobUrl = job._source.url;
+              const date = ""; 
+              const agoTime = ""; 
+              const position = job._source.title;
+              const company = "IBM";
+              const internship = job._source.title.toLowerCase().includes('intern');
+              jobPostingsData.push({ position, company, location, jobUrl, date, agoTime, internship });
             });
         }
         return jobPostingsData;

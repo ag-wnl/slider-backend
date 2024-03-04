@@ -18,8 +18,9 @@ async function getRemotiveJobs() {
                 const agoTime = "";
                 const position = job.title;
                 const company = job.company_name;
+                const internship = job.title.toLowerCase().includes('intern');
 
-                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime });
+                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime, internship });
             });
         }
         return jobPostingsData;

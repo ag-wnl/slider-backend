@@ -37,8 +37,9 @@ async function getNetflixJobsAPI() {
                 const agoTime = calculateDaysAgo(job.updated_at) + " days";
                 const position = job.text;
                 const company = "Netflix";
+                const internship = job.text.toLowerCase().includes('intern');
 
-                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime });
+                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime, internship });
             });
         }
         return jobPostingsData;

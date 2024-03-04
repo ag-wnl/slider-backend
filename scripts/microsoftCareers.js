@@ -37,8 +37,8 @@ async function getMicrosoftJobsAPI() {
                 const agoTime = calculateDaysAgo(job.postingDate) + " days";
                 const position = job.title;
                 const company = "Microsoft";
-
-                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime });
+                const internship = job.title.toLowerCase().includes('intern');
+                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime, internship });
             });
         }
         return jobPostingsData;

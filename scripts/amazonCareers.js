@@ -72,8 +72,9 @@ async function getAmazonJobsAPI() {
                 const agoTime = job.updated_time;
                 const position = job.title;
                 const company = "Amazon";
+                const internship = job.title.toLowerCase().includes('intern');
 
-                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime });
+                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime, internship });
             });
         }
         return jobPostingsData;

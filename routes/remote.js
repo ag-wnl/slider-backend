@@ -27,6 +27,14 @@ async function fetchRemoteJobsDetails() {
         const allJobPostings = YCjobs.concat(remotiveJobs);
         // allJobPostings = randomizeArray(allJobPostings);
 
+        for(let i = allJobPostings.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+    
+            const holderObj = allJobPostings[i];
+            allJobPostings[i] = allJobPostings[j];
+            allJobPostings[j] = holderObj;
+        }
+
         return allJobPostings;
     } catch (error) {
         throw new Error('Error fetching remote job details: ' + error);

@@ -46,8 +46,8 @@ async function getNvidiaJobsAPI() {
                 const agoTime = job.postedOn; 
                 const position = job.title;
                 const company = "Nvidia";
-
-                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime });
+                const internship = job.title.toLowerCase().includes('intern');
+                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime, internship });
             });
         }
         return jobPostingsData;

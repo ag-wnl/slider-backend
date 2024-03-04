@@ -46,8 +46,8 @@ async function getSnowflakeJobsAPI() {
                 const agoTime = "";
                 const position = job.title;
                 const company = "Snowflake";
-
-                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime });
+                const internship = job.title.toLowerCase().includes('intern');
+                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime, internship });
 
             
             });

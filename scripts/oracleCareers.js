@@ -37,8 +37,10 @@ async function getOracleJobsAPI() {
                 const agoTime = calculateDaysAgo(job.PostedDate) + " days";
                 const position = job.Title;
                 const company = "Oracle";
+                const internship = job.Title.toLowerCase().includes('intern');
 
-                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime });
+
+                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime, internship });
             });
         }
         return jobPostingsData;

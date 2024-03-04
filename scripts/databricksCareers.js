@@ -43,8 +43,8 @@ async function getDatabricksJobsAPI() {
                 const agoTime = calculateDaysAgo(job.updated_at) + " days"; 
                 const position = job.title;
                 const company = "Databricks";
-
-                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime });
+                const internship = job.title.toLowerCase().includes('intern');
+                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime, internship });
             });
         }
         return jobPostingsData;

@@ -36,8 +36,8 @@ async function getAtlassianJobsAPI() {
                     const agoTime = "";
                     const position = job.title;
                     const company = "Atlassian";
-
-                    jobPostingsData.push({ position, company, location, jobUrl, date, agoTime });
+                    const internship = job.title.toLowerCase().includes('intern');
+                    jobPostingsData.push({ position, company, location, jobUrl, date, agoTime, internship });
 
                 }
             });

@@ -41,8 +41,9 @@ async function getYCJobs() {
                 const agoTime = "";
                 const position = removeBatchFromTitle(job.title);
                 const company = job.company_name;
+                const internship = position.toLowerCase().includes('intern');
 
-                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime });
+                jobPostingsData.push({ position, company, location, jobUrl, date, agoTime, internship });
             });
         }
         return jobPostingsData;
