@@ -8,12 +8,6 @@ const fs = require('fs');
 const path = require('path');
 const cacheFilePath = path.join(__dirname, '../storage/remoteJobsCache.json');
 
-function randomizeArray(arr) {
-    for(let i = arr.length-1; i>0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[i], arr[j]];
-    }
-}
 
 async function fetchRemoteJobsDetails() {
 
@@ -43,7 +37,7 @@ async function fetchRemoteJobsDetails() {
 
 router.get("/", async(req, res) => {
 
-    fs.readFile(cacheFilePath, (err, data) => {
+    fs.readFile(cacheFilePath, async(err, data) => {
         if(err) {
             console.log(err);
             return;
@@ -59,6 +53,8 @@ router.get("/", async(req, res) => {
                 return;
             } 
             else {
+                res.status(200).send(jobPostings);
+
                 fetchRemoteJobsDetails()
                 .then(allJobPostings => {
 
@@ -71,7 +67,7 @@ router.get("/", async(req, res) => {
                         } 
                     })
 
-                    res.status(200).send(allJobPostings);
+                    // res.status(200).send(allJobPostings);
                 })
                 .catch(error => {
                     console.error('Error:', error);
